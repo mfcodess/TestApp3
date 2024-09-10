@@ -9,7 +9,9 @@ import UIKit
 
 final class EmployeeListViewController: UIViewController {
     
+
     //MARK: - Private properties
+    
     private lazy var textField: UITextField = {
         let attrubtedString = NSMutableAttributedString(string: "Введи ім'я, тег, пошту...")
         attrubtedString.setTextColor(color: .textFieldPlaceholderTextColorr, toSubstring: "Введи ім'я, тег, пошту...")
@@ -19,7 +21,7 @@ final class EmployeeListViewController: UIViewController {
         textField.textColor = .black
         textField.backgroundColor = .textFieldColorr
         textField.layer.cornerRadius = 15
-        textField.font = .systemFont(ofSize: 15, weight: .medium)
+        textField.font = .systemFont(ofSize: 14, weight: .medium)
         textField.attributedPlaceholder = attrubtedString
         
         ///Create Button Left
@@ -55,15 +57,15 @@ final class EmployeeListViewController: UIViewController {
         return textField
     }()
     private var panelElement = ["Всi", "iOS", "Android", "Дизайн", "Управління", "QA", "HR", "Backend", "Техпідтримка", "Аналітика"]
+    private var selectedIndexPath: IndexPath?
     
     private lazy var panelCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 20
-       
+        layout.minimumInteritemSpacing = 0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .purple
+        //collectionView.backgroundColor = .purple
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PanelCollectionViewCell.self, forCellWithReuseIdentifier: "PanelCollectionViewCell")
@@ -72,6 +74,7 @@ final class EmployeeListViewController: UIViewController {
     }()
     
     // MARK: - Override method
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,6 +92,7 @@ final class EmployeeListViewController: UIViewController {
 }
 
 //MARK: - Extension
+
 extension EmployeeListViewController {
     
     // MARK: - Private methods
@@ -106,7 +110,7 @@ extension EmployeeListViewController {
     private func createPanelCollectionViewConstrains() {
         panelCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            panelCollectionView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 30),
+            panelCollectionView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 10),
             panelCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             panelCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
@@ -116,6 +120,7 @@ extension EmployeeListViewController {
 }
 
 //MARK: - UICollectionViewDataSource
+
 extension EmployeeListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return panelElement.count
@@ -125,14 +130,86 @@ extension EmployeeListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PanelCollectionViewCell", for: indexPath) as! PanelCollectionViewCell
         
         cell.configure(text: panelElement[indexPath.row])
+        
+        switch indexPath.row {
+        case 0:
+            cell.configureTextColor(textColor: .black)
+            cell.configureBottomLine(isSelected: true)
+        case 1:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 2:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 3:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 4:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 5:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 6:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 7:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 8:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        case 9:
+            cell.configureTextColor(textColor: .gray)
+            cell.configureBottomLine(isSelected: false)
+        default:
+            cell.configureBottomLine(isSelected: false)
+        }
         return cell
     }
 }
 
 //MARK: - UICollectionViewDelegate
 extension EmployeeListViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let previousIndexPath = selectedIndexPath,
+           let previousCell = collectionView.cellForItem(at: previousIndexPath) as? PanelCollectionViewCell {
+            previousCell.configureTextColor(textColor: .gray)
+            previousCell.configureBottomLine(isSelected: false)
+        }
+        
+        selectedIndexPath = indexPath
+        if let cell = collectionView.cellForItem(at: indexPath) as? PanelCollectionViewCell {
+            cell.configureTextColor(textColor: .black)
+            cell.configureBottomLine(isSelected: true)
+        }
+    }
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
+extension EmployeeListViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // Получаем текст для текущей ячейки из массива panelElement
+        let text = panelElement[indexPath.row]
+        
+        // Задаем максимальную ширину ячейки (например, 160)
+        let maxWidth = CGFloat(150)
+        
+        // Рассчитываем ширину текста, используя стандартный шрифт
+        let textWidth = (text as NSString).size(withAttributes: nil).width
+        
+        // Добавляем отступы и проверяем, чтобы ширина не была меньше 10 пунктов и не превышала максимальную ширину
+        let cellWidth = min(max(textWidth + 39, 0), maxWidth) // +50 для отступов (20 слева и 20 справа)
+        
+        // Возвращаем рассчитанный размер, чтобы ячейка могла динамически подстраиваться под текст
+        return CGSize(width: cellWidth, height: collectionView.bounds.height)
+
+    }
+}
+
 
 
 
