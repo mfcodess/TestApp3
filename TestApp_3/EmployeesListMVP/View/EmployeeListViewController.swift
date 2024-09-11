@@ -9,7 +9,6 @@ import UIKit
 
 final class EmployeeListViewController: UIViewController {
     
-
     //MARK: - Private properties
     
     private lazy var textField: UITextField = {
@@ -56,8 +55,21 @@ final class EmployeeListViewController: UIViewController {
         
         return textField
     }()
-    private var panelElement = ["Всi", "iOS", "Android", "Дизайн", "Управління", "QA", "HR", "Backend", "Техпідтримка", "Аналітика"]
-    private var selectedIndexPath: IndexPath?
+    
+    private var categories = [
+        EmployeeCategory(category: "Всi"),
+        EmployeeCategory(category: "iOS"),
+        EmployeeCategory(category: "Android"),
+        EmployeeCategory(category: "Дизайн"),
+        EmployeeCategory(category: "QA"),
+        EmployeeCategory(category: "HR"),
+        EmployeeCategory(category: "Backend"),
+        EmployeeCategory(category: "Техпiтримка"),
+        EmployeeCategory(category: "Аналiтика")
+    ]
+    
+    //Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
+    private var selectedIndex = 0
     
     private lazy var panelCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -69,8 +81,19 @@ final class EmployeeListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PanelCollectionViewCell.self, forCellWithReuseIdentifier: "PanelCollectionViewCell")
+        collectionView.showsHorizontalScrollIndicator = false
         
         return collectionView
+    }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        //tableView.backgroundColor = .red
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        return tableView
     }()
     
     // MARK: - Override method
@@ -78,6 +101,7 @@ final class EmployeeListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ///Add Background Color
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: true)
         
@@ -88,6 +112,10 @@ final class EmployeeListViewController: UIViewController {
         ///Add to the Screen Panel
         view.addSubview(panelCollectionView)
         createPanelCollectionViewConstrains()
+        
+        ///Add to the TableVIew
+        view.addSubview(tableView)
+        createTableViewConsrains()
     }
 }
 
@@ -96,6 +124,7 @@ final class EmployeeListViewController: UIViewController {
 extension EmployeeListViewController {
     
     // MARK: - Private methods
+    
     private func createTextFieldConstrains() {
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -110,80 +139,66 @@ extension EmployeeListViewController {
     private func createPanelCollectionViewConstrains() {
         panelCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            panelCollectionView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 10),
+            panelCollectionView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 12),
             panelCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             panelCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
-            panelCollectionView.heightAnchor.constraint(equalToConstant: 44)
+            panelCollectionView.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
+    
+    private func createTableViewConsrains() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: panelCollectionView.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
 }
 
 //MARK: - UICollectionViewDataSource
 
 extension EmployeeListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return panelElement.count
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PanelCollectionViewCell", for: indexPath) as! PanelCollectionViewCell
         
-        cell.configure(text: panelElement[indexPath.row])
+        let category = categories[indexPath.row].category
         
-        switch indexPath.row {
-        case 0:
-            cell.configureTextColor(textColor: .black)
-            cell.configureBottomLine(isSelected: true)
-        case 1:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 2:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 3:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 4:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 5:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 6:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 7:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 8:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        case 9:
-            cell.configureTextColor(textColor: .gray)
-            cell.configureBottomLine(isSelected: false)
-        default:
-            cell.configureBottomLine(isSelected: false)
+        cell.configure(text: category)
+        
+        if indexPath.row == selectedIndex {
+            cell.configureTextColor(textColor: .black)  // Цвет текста для выбранного элемента
+            cell.configureBottomLine(isSelected: true)  // Включаем нижнюю линию для выбранного элемента
+        } else {
+            cell.configureTextColor(textColor: .gray)  // Цвет текста для невыбранных элементов
+            cell.configureBottomLine(isSelected: false)  // Отключаем нижнюю линию для невыбранных
         }
+        
         return cell
     }
+    
 }
 
 //MARK: - UICollectionViewDelegate
+
 extension EmployeeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let previousIndexPath = selectedIndexPath,
-           let previousCell = collectionView.cellForItem(at: previousIndexPath) as? PanelCollectionViewCell {
-            previousCell.configureTextColor(textColor: .gray)
-            previousCell.configureBottomLine(isSelected: false)
-        }
+        //1.    Сохраняется старый индекс выбранной ячейки в oldIndexPath.
+        //2.    Обновляется выбранная ячейка: сначала сохраняется новый индекс в selectedIndex, затем перезагружаются старая и новая ячейки с помощью reloadItems(at:).
+        let oldIndexPath = IndexPath(row: selectedIndex, section: 0)
+        selectedIndex = indexPath.row
         
-        selectedIndexPath = indexPath
-        if let cell = collectionView.cellForItem(at: indexPath) as? PanelCollectionViewCell {
-            cell.configureTextColor(textColor: .black)
-            cell.configureBottomLine(isSelected: true)
-        }
+        collectionView.reloadItems(at: [oldIndexPath, indexPath])
+        //Проще говоря, это нужно, чтобы обновить выделение: подсветить новую ячейку и убрать подсветку со старой.
+      
     }
 }
 
@@ -192,26 +207,37 @@ extension EmployeeListViewController: UICollectionViewDelegate {
 extension EmployeeListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Получаем текст для текущей ячейки из массива panelElement
-        let text = panelElement[indexPath.row]
         
-        // Задаем максимальную ширину ячейки (например, 160)
-        let maxWidth = CGFloat(150)
-        
-        // Рассчитываем ширину текста, используя стандартный шрифт
-        let textWidth = (text as NSString).size(withAttributes: nil).width
-        
-        // Добавляем отступы и проверяем, чтобы ширина не была меньше 10 пунктов и не превышала максимальную ширину
-        let cellWidth = min(max(textWidth + 39, 0), maxWidth) // +50 для отступов (20 слева и 20 справа)
-        
-        // Возвращаем рассчитанный размер, чтобы ячейка могла динамически подстраиваться под текст
-        return CGSize(width: cellWidth, height: collectionView.bounds.height)
+        let text = categories[indexPath.row].category
+        let maxWidth: CGFloat = 120
+        let padding: CGFloat = 25
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
+        let textWidth = text.size(withAttributes: attributes).width
+        let cellWidth = min(textWidth + padding, maxWidth)
 
+        return CGSize(width: cellWidth, height: collectionView.bounds.height)
     }
 }
 
+//MARK: - UITableViewDataSource
 
+extension EmployeeListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        return cell
+    }
+}
 
+//MARK: - UITableViewDelegate
+
+extension EmployeeListViewController: UITableViewDelegate {
+    
+}
 
 #Preview {
     EmployeeListViewController()

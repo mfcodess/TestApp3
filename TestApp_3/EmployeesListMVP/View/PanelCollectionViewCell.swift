@@ -9,7 +9,7 @@ import UIKit
 
 class PanelCollectionViewCell: UICollectionViewCell {
     
-    
+    private var selectedCategoryInde = 0
     //MARK: - Private properties
     
     private lazy var panelLabel: UILabel = {
@@ -60,14 +60,20 @@ class PanelCollectionViewCell: UICollectionViewCell {
     func configure(text: String) {
         panelLabel.text = text
     }
-    func configureTextColor(textColor: UIColor) {
-        panelLabel.textColor = textColor
-    }
     
-    func configureBottomLine(isSelected: Bool) {
-        bottomLine.isHidden = !isSelected
-    }
+        //я создаю функцию,чтобы в выбранной ячейки изменить цвет текста (Вместо того чтобы повторять одну и туже логику в разных местах)
+        //передаю нужные даннные внутри параметра функции
+        func configureTextColor(textColor: UIColor) {
+            // Логика изменения цвета текста
+            panelLabel.textColor = textColor
+        }
+        
+        func configureBottomLine(isSelected: Bool) {
+            // Логика изменения нижней линии
+            bottomLine.isHidden = !isSelected
+        }
     
+   
     // MARK: - Private methods
     
     private func createViewLabelConstrains() {
