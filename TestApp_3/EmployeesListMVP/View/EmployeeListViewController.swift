@@ -83,7 +83,16 @@ final class EmployeeListViewController: UIViewController {
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "PanelCollectionViewCell")
         collectionView.showsHorizontalScrollIndicator = false
         
+
+        
+        
         return collectionView
+    }()
+    
+    private lazy var bottomLineCollectionView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
     }()
     
     private lazy var tableView: UITableView = {
@@ -91,8 +100,8 @@ final class EmployeeListViewController: UIViewController {
         //tableView.backgroundColor = .red
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -116,6 +125,9 @@ final class EmployeeListViewController: UIViewController {
         ///Add to the TableVIew
         view.addSubview(tableView)
         createTableViewConsrains()
+        
+        view.addSubview(bottomLineCollectionView)
+        createBottomLineCollectionViewConstrains()
     }
 }
 
@@ -151,12 +163,22 @@ extension EmployeeListViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: panelCollectionView.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
+    private func createBottomLineCollectionViewConstrains() {
+        bottomLineCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bottomLineCollectionView.bottomAnchor.constraint(equalTo: panelCollectionView.bottomAnchor),
+            bottomLineCollectionView.trailingAnchor.constraint(equalTo: panelCollectionView.trailingAnchor),
+            bottomLineCollectionView.leadingAnchor.constraint(equalTo: panelCollectionView.leadingAnchor),
+            
+            bottomLineCollectionView.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -223,12 +245,15 @@ extension EmployeeListViewController: UICollectionViewDelegateFlowLayout {
 
 extension EmployeeListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTableViewCell else {
+            fatalError("The TableView could not dequeue a CustomTableViewCell in VC")
+        }
         
+       
         return cell
     }
 }

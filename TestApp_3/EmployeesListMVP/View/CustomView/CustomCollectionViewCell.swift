@@ -19,15 +19,14 @@ class CustomCollectionViewCell: UICollectionViewCell {
         //label.numberOfLines = 0
         label.textColor = .black
         //label.backgroundColor = .red
-        
         return label
     }()
     
     private lazy var bottomLine: UIView = {
-           let view = UIView()
-           view.backgroundColor = UIColor.lineColorr
+        let view = UIView()
+        view.backgroundColor = UIColor.lineColorr
         
-           return view
+        return view
     }()
     
     private lazy var viewLabel: UIView = {
@@ -61,19 +60,19 @@ class CustomCollectionViewCell: UICollectionViewCell {
         panelLabel.text = text
     }
     
-        //я создаю функцию,чтобы в выбранной ячейки изменить цвет текста (Вместо того чтобы повторять одну и туже логику в разных местах)
-        //передаю нужные даннные внутри параметра функции
-        func configureTextColor(textColor: UIColor) {
-            // Логика изменения цвета текста
-            panelLabel.textColor = textColor
-        }
-        
-        func configureBottomLine(isSelected: Bool) {
-            // Логика изменения нижней линии
-            bottomLine.isHidden = !isSelected
-        }
+    //я создаю функцию,чтобы в выбранной ячейки изменить цвет текста (Вместо того чтобы повторять одну и туже логику в разных местах)
+    //передаю нужные даннные внутри параметра функции
+    func configureTextColor(textColor: UIColor) {
+        // Логика изменения цвета текста
+        panelLabel.textColor = textColor
+    }
     
-   
+    func configureBottomLine(isSelected: Bool) {
+        // Логика изменения нижней линии
+        bottomLine.isHidden = !isSelected
+    }
+    
+    
     // MARK: - Private methods
     
     private func createViewLabelConstrains() {
