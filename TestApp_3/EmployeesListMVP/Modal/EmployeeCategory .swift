@@ -10,5 +10,5 @@ import Foundation
 
 // Структура для хранения категории
 struct EmployeeCategory {
-    let category: String
+    let name: String
 }

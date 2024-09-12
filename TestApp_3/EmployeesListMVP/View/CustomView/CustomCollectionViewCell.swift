@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PanelCollectionViewCell: UICollectionViewCell {
+class CustomCollectionViewCell: UICollectionViewCell {
     
     private var selectedCategoryInde = 0
     //MARK: - Private properties
@@ -89,10 +89,10 @@ class PanelCollectionViewCell: UICollectionViewCell {
     private func createPanelLabelConstraints() {
         panelLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            panelLabel.leadingAnchor.constraint(equalTo: viewLabel.leadingAnchor, constant: 8),
-            panelLabel.trailingAnchor.constraint(equalTo: viewLabel.trailingAnchor, constant: -8),
-            panelLabel.topAnchor.constraint(equalTo: viewLabel.topAnchor, constant: 8),
-            panelLabel.bottomAnchor.constraint(equalTo: viewLabel.bottomAnchor, constant: -8)
+            panelLabel.leadingAnchor.constraint(equalTo: viewLabel.leadingAnchor, constant: 16),
+            panelLabel.trailingAnchor.constraint(equalTo: viewLabel.trailingAnchor),
+            panelLabel.topAnchor.constraint(equalTo: viewLabel.topAnchor),
+            panelLabel.bottomAnchor.constraint(equalTo: viewLabel.bottomAnchor)
         ])
     }
     
@@ -100,7 +100,7 @@ class PanelCollectionViewCell: UICollectionViewCell {
         bottomLine.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             bottomLine.trailingAnchor.constraint(equalTo: viewLabel.trailingAnchor),
-            bottomLine.leadingAnchor.constraint(equalTo: viewLabel.leadingAnchor),
+            bottomLine.leadingAnchor.constraint(equalTo: viewLabel.leadingAnchor, constant: 16),
             bottomLine.bottomAnchor.constraint(equalTo: viewLabel.bottomAnchor),
             bottomLine.heightAnchor.constraint(equalToConstant: 2.0)
         ])
@@ -108,5 +108,5 @@ class PanelCollectionViewCell: UICollectionViewCell {
 }
 
 #Preview {
-    PanelCollectionViewCell()
+    CustomCollectionViewCell()
 }

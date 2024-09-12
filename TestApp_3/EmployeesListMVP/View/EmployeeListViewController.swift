@@ -57,15 +57,15 @@ final class EmployeeListViewController: UIViewController {
     }()
     
     private var categories = [
-        EmployeeCategory(category: "Всi"),
-        EmployeeCategory(category: "iOS"),
-        EmployeeCategory(category: "Android"),
-        EmployeeCategory(category: "Дизайн"),
-        EmployeeCategory(category: "QA"),
-        EmployeeCategory(category: "HR"),
-        EmployeeCategory(category: "Backend"),
-        EmployeeCategory(category: "Техпiтримка"),
-        EmployeeCategory(category: "Аналiтика")
+        EmployeeCategory(name: "Всi"),
+        EmployeeCategory(name: "iOS"),
+        EmployeeCategory(name: "Android"),
+        EmployeeCategory(name: "Дизайн"),
+        EmployeeCategory(name: "QA"),
+        EmployeeCategory(name: "HR"),
+        EmployeeCategory(name: "Backend"),
+        EmployeeCategory(name: "Техпiтримка"),
+        EmployeeCategory(name: "Аналiтика")
     ]
     
     //Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
@@ -80,7 +80,7 @@ final class EmployeeListViewController: UIViewController {
         //collectionView.backgroundColor = .purple
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(PanelCollectionViewCell.self, forCellWithReuseIdentifier: "PanelCollectionViewCell")
+        collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "PanelCollectionViewCell")
         collectionView.showsHorizontalScrollIndicator = false
         
         return collectionView
@@ -140,8 +140,8 @@ extension EmployeeListViewController {
         panelCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             panelCollectionView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 12),
-            panelCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            panelCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            panelCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            panelCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             
             panelCollectionView.heightAnchor.constraint(equalToConstant: 35)
         ])
@@ -151,8 +151,8 @@ extension EmployeeListViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: panelCollectionView.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -167,9 +167,9 @@ extension EmployeeListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PanelCollectionViewCell", for: indexPath) as! PanelCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PanelCollectionViewCell", for: indexPath) as! CustomCollectionViewCell
         
-        let category = categories[indexPath.row].category
+        let category = categories[indexPath.row].name
         
         cell.configure(text: category)
         
@@ -208,7 +208,7 @@ extension EmployeeListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let text = categories[indexPath.row].category
+        let text = categories[indexPath.row].name
         let maxWidth: CGFloat = 120
         let padding: CGFloat = 25
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
