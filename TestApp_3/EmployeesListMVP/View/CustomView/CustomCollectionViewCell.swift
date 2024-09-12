@@ -9,7 +9,6 @@ import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
     
-    private var selectedCategoryInde = 0
     //MARK: - Private properties
     
     private lazy var panelLabel: UILabel = {
@@ -25,7 +24,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
     private lazy var bottomLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.lineColorr
-        
         return view
     }()
     
@@ -34,10 +32,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         //view.backgroundColor = .green
         view.addSubview(panelLabel)
         view.addSubview(bottomLine)
-        
         return view
     }()
-    
     
     // MARK: - Override method
     
@@ -72,6 +68,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
         bottomLine.isHidden = !isSelected
     }
     
+    func configureFontText(text: UIFont) {
+        panelLabel.font = text
+    }
     
     // MARK: - Private methods
     
@@ -101,6 +100,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
             bottomLine.trailingAnchor.constraint(equalTo: viewLabel.trailingAnchor),
             bottomLine.leadingAnchor.constraint(equalTo: viewLabel.leadingAnchor, constant: 16),
             bottomLine.bottomAnchor.constraint(equalTo: viewLabel.bottomAnchor),
+            
             bottomLine.heightAnchor.constraint(equalToConstant: 2.0)
         ])
     }

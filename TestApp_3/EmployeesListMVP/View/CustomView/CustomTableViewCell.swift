@@ -9,6 +9,8 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     
+    //MARK: - Private properties
+    
     private lazy var userImageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "Max")
@@ -21,21 +23,21 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Максим Федосеенко"
+        label.text = "Максим Федосєєнко"
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textColor = .black
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         return label
     }()
     
     private lazy var userCategoriesLabel: UILabel = {
         let label = UILabel()
         label.text = "iOS"
-        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = .gray
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         return label
     }()
     
@@ -46,6 +48,7 @@ class CustomTableViewCell: UITableViewCell {
         stackView.spacing = -30
         stackView.alignment = .leading
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         stackView.addArrangedSubview(userNameLabel)
         stackView.addArrangedSubview(userCategoriesLabel)
         return stackView
@@ -56,6 +59,7 @@ class CustomTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         stackView.addArrangedSubview(userImageView)
         stackView.addArrangedSubview(userNameAndCategoriesStackView)
         return stackView
@@ -84,7 +88,6 @@ class CustomTableViewCell: UITableViewCell {
         ])
     }
 }
-
 
 #Preview {
     CustomTableViewCell()
