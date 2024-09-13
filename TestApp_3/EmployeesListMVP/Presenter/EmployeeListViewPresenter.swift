@@ -13,7 +13,7 @@ protocol EmployeeListViewProtocol: AnyObject {
 }
 
 final class EmployeeListViewPresenter {
-    weak var view: EmployeeListViewProtocol?
+    weak var viewController: EmployeeListViewProtocol?
     
     
     func loadCategories() {
@@ -28,7 +28,7 @@ final class EmployeeListViewPresenter {
             EmployeeCategory(name: "Техпiтримка"),
             EmployeeCategory(name: "Аналiтика")
         ]
-        view?.showCategories(categories: categories)
+        viewController?.showCategories(categories: categories)
     }
     
     //    func loadEmployees() {

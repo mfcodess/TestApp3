@@ -134,7 +134,7 @@ final class EmployeeListViewController: UIViewController {
         createBottomLineCollectionViewConstrains()
         
         presenter = EmployeeListViewPresenter()
-        presenter.view = self  // Устанавливаем контроллер в качестве view
+        presenter.viewController = self  // Устанавливаем контроллер в качестве view
         
         presenter.loadCategories()  // Загружаем категории через презентер
     }
