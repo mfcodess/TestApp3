@@ -9,6 +9,8 @@ import UIKit
 
 final class EmployeeListViewController: UIViewController {
     
+    private var presenter: EmployeeListViewPresenter!
+    
     //MARK: - Private properties
     
     private lazy var textField: UITextField = {
@@ -57,17 +59,20 @@ final class EmployeeListViewController: UIViewController {
         return textField
     }()
     
-    private var categories = [
-        EmployeeCategory(name: "Всi"),
-        EmployeeCategory(name: "iOS"),
-        EmployeeCategory(name: "Android"),
-        EmployeeCategory(name: "Дизайн"),
-        EmployeeCategory(name: "QA"),
-        EmployeeCategory(name: "HR"),
-        EmployeeCategory(name: "Backend"),
-        EmployeeCategory(name: "Техпiтримка"),
-        EmployeeCategory(name: "Аналiтика")
-    ]
+    private var categories: [EmployeeCategory] = []
+    private var employees: [User] = []
+    
+//    private var categories = [
+//        EmployeeCategory(name: "Всi"),
+//        EmployeeCategory(name: "iOS"),
+//        EmployeeCategory(name: "Android"),
+//        EmployeeCategory(name: "Дизайн"),
+//        EmployeeCategory(name: "QA"),
+//        EmployeeCategory(name: "HR"),
+//        EmployeeCategory(name: "Backend"),
+//        EmployeeCategory(name: "Техпiтримка"),
+//        EmployeeCategory(name: "Аналiтика")
+//    ]
     
     //Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
     private var selectedIndex = 0
@@ -127,6 +132,11 @@ final class EmployeeListViewController: UIViewController {
         ///Add to the Bottom Line
         view.addSubview(bottomLineCollectionView)
         createBottomLineCollectionViewConstrains()
+        
+        presenter = EmployeeListViewPresenter()
+        presenter.view = self  // Устанавливаем контроллер в качестве view
+        
+        presenter.loadCategories()  // Загружаем категории через презентер
     }
     
     //MARK: - @Objc
@@ -168,7 +178,7 @@ extension EmployeeListViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: panelCollectionView.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
@@ -271,6 +281,13 @@ extension EmployeeListViewController: UITableViewDataSource {
 extension EmployeeListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension EmployeeListViewController: EmployeeListViewProtocol {
+    func showCategories(categories: [EmployeeCategory]) {
+        self.categories = categories
+        panelCollectionView.reloadData()  // Обновляем коллекцию с категориями
     }
 }
 

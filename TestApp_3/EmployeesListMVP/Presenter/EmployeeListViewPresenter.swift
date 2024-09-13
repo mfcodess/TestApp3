@@ -7,14 +7,32 @@
 
 import Foundation
 
-
-
-protocol EmployeeListViewPresenterProtocol: AnyObject {
-    
+protocol EmployeeListViewProtocol: AnyObject {
+    func showCategories(categories: [EmployeeCategory])
+    //func showEmployee(employees: [User])
 }
-protocol EmployeeListViewPresenterProtocвol: AnyObject {
+
+final class EmployeeListViewPresenter {
+    weak var view: EmployeeListViewProtocol?
     
-}
-protocol EmploаyeeListViewPresenterProtocвol: AnyObject {
     
+    func loadCategories() {
+        let categories: [EmployeeCategory] = [
+            EmployeeCategory(name: "Всi"),
+            EmployeeCategory(name: "iOS"),
+            EmployeeCategory(name: "Android"),
+            EmployeeCategory(name: "Дизайн"),
+            EmployeeCategory(name: "QA"),
+            EmployeeCategory(name: "HR"),
+            EmployeeCategory(name: "Backend"),
+            EmployeeCategory(name: "Техпiтримка"),
+            EmployeeCategory(name: "Аналiтика")
+        ]
+        view?.showCategories(categories: categories)
+    }
+    
+    //    func loadEmployees() {
+    //        let employees: [User] = [User(avatarURL: "dwdfqw", firstnName: "fewf", lastName: "fefw")]
+    //        view?.showEmployee(employees: employees)
+    //    }
 }

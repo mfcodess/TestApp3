@@ -59,7 +59,6 @@ final class CustomTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         stackView.addArrangedSubview(userImageView)
         stackView.addArrangedSubview(userNameAndCategoriesStackView)
         return stackView
