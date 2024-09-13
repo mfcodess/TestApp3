@@ -15,6 +15,7 @@
 		A6B36F432C8E06250023A862 /* EmployeeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F422C8E06250023A862 /* EmployeeListViewController.swift */; };
 		A6B36F482C8EECE20023A862 /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F472C8EECE20023A862 /* NSMutableAttributedString.swift */; };
 		A6B36F4A2C8F391D0023A862 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F492C8F391C0023A862 /* CustomCollectionViewCell.swift */; };
+		A6BE11E22C941C6800457E3B /* EmployeeListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BE11E12C941C6800457E3B /* EmployeeListViewPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		A6B36F422C8E06250023A862 /* EmployeeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListViewController.swift; sourceTree = "<group>"; };
 		A6B36F472C8EECE20023A862 /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedString.swift; sourceTree = "<group>"; };
 		A6B36F492C8F391C0023A862 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		A6BE11E12C941C6800457E3B /* EmployeeListViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListViewPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		A6B36F3C2C8E01870023A862 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				A6BE11E12C941C6800457E3B /* EmployeeListViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				A61C520F2C91B35000B90C99 /* EmployeeCategory .swift in Sources */,
 				A6B36F432C8E06250023A862 /* EmployeeListViewController.swift in Sources */,
 				A6B36F272C8D97660023A862 /* AppDelegate.swift in Sources */,
+				A6BE11E22C941C6800457E3B /* EmployeeListViewPresenter.swift in Sources */,
 				A6B36F482C8EECE20023A862 /* NSMutableAttributedString.swift in Sources */,
 				A6B36F4A2C8F391D0023A862 /* CustomCollectionViewCell.swift in Sources */,
 			);

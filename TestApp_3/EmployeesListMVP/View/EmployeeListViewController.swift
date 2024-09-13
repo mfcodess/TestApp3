@@ -81,7 +81,7 @@ final class EmployeeListViewController: UIViewController {
         //collectionView.backgroundColor = .purple
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "PanelCollectionViewCell")
+        collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         return collectionView
@@ -198,6 +198,7 @@ extension EmployeeListViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCollectionViewCell else {
             fatalError("The collectionView could not dequeue a CustomCollectionViewCell in VC")
         }
+        
         
         let category = categories[indexPath.row].name
         
