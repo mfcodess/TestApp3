@@ -12,3 +12,6 @@ import Foundation
 protocol EmployeeListViewPresenterProtocol: AnyObject {
     
 }
+protocol EmployeeListViewPresenterProtocвol: AnyObject {
+    
+}
