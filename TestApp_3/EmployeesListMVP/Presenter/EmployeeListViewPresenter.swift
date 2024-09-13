@@ -15,3 +15,6 @@ protocol EmployeeListViewPresenterProtocol: AnyObject {
 protocol EmployeeListViewPresenterProtocвol: AnyObject {
     
 }
+protocol EmploаyeeListViewPresenterProtocвol: AnyObject {
+    
+}
