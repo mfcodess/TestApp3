@@ -9,6 +9,7 @@ import UIKit
 
 final class EmployeeListViewController: UIViewController {
     
+    ///Что это? Это свойство создаёт место для ссылки на объект презентера (EmployeeListViewPresenter), который будет управлять логикой взаимодействия с данными.
     private var presenter: EmployeeListViewPresenter!
     
     //MARK: - Private properties
@@ -59,22 +60,11 @@ final class EmployeeListViewController: UIViewController {
         return textField
     }()
     
+    ///Что это? Это массив, который будет хранить категории сотрудников, полученные от презентера.
     private var categories: [EmployeeCategory] = []
-    private var employees: [User] = []
+    //private var employees: [User] = []
     
-//    private var categories = [
-//        EmployeeCategory(name: "Всi"),
-//        EmployeeCategory(name: "iOS"),
-//        EmployeeCategory(name: "Android"),
-//        EmployeeCategory(name: "Дизайн"),
-//        EmployeeCategory(name: "QA"),
-//        EmployeeCategory(name: "HR"),
-//        EmployeeCategory(name: "Backend"),
-//        EmployeeCategory(name: "Техпiтримка"),
-//        EmployeeCategory(name: "Аналiтика")
-//    ]
-    
-    //Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
+    ///Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
     private var selectedIndex = 0
     
     private lazy var panelCollectionView: UICollectionView = {
@@ -133,9 +123,12 @@ final class EmployeeListViewController: UIViewController {
         view.addSubview(bottomLineCollectionView)
         createBottomLineCollectionViewConstrains()
         
-        presenter = EmployeeListViewPresenter()
-        presenter.viewController = self  // Устанавливаем контроллер в качестве view
         
+        ///Что это? Здесь ты создаёшь новый объект EmployeeListViewPresenter и присваиваешь его свойству presenter. После этого устанавливаешь viewController в презентере, чтобы презентер мог взаимодействовать с текущим ViewController.
+        presenter = EmployeeListViewPresenter()
+        presenter.viewController = self  ///Презентер теперь знает, какой контроллер использовать для отображения данных и вызова методов.
+        
+        ///Что это? Здесь вызывается метод loadCategories(), который загружает список категорий (например, через статические данные или из API) и затем передаёт их в контроллер через метод showCategories().
         presenter.loadCategories()  // Загружаем категории через презентер
     }
     
@@ -232,13 +225,13 @@ extension EmployeeListViewController: UICollectionViewDataSource {
 extension EmployeeListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        //1.    Сохраняется старый индекс выбранной ячейки в oldIndexPath.
-        //2.    Обновляется выбранная ячейка: сначала сохраняется новый индекс в selectedIndex, затем перезагружаются старая и новая ячейки с помощью reloadItems(at:).
+        ///1.    Сохраняется старый индекс выбранной ячейки в oldIndexPath.
+        ///2.    Обновляется выбранная ячейка: сначала сохраняется новый индекс в selectedIndex, затем перезагружаются старая и новая ячейки с помощью reloadItems(at:).
         let oldIndexPath = IndexPath(row: selectedIndex, section: 0)
         selectedIndex = indexPath.row
         
         collectionView.reloadItems(at: [oldIndexPath, indexPath])
-        //Проще говоря, это нужно, чтобы обновить выделение: подсветить новую ячейку и убрать подсветку со старой.
+        ///Проще говоря, это нужно, чтобы обновить выделение: подсветить новую ячейку и убрать подсветку со старой.
     }
 }
 
@@ -284,9 +277,12 @@ extension EmployeeListViewController: UITableViewDelegate {
     }
 }
 
+
+///Ты пишешь это, чтобы контроллер мог получать данные от презентера и отображать их.
 extension EmployeeListViewController: EmployeeListViewProtocol {
     func showCategories(categories: [EmployeeCategory]) {
         self.categories = categories
+        ///Без этого вызова обновлённые категории не отобразятся в коллекции.
         panelCollectionView.reloadData()  // Обновляем коллекцию с категориями
     }
 }
