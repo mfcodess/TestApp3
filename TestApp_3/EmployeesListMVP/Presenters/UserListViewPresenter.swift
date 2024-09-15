@@ -40,13 +40,15 @@ final class UserListViewPresenter {
     
     /// Метод для загрузки пользователей с использованием APIManager
     func loadUsers() {
-        ///Вызываем метод fetchUsers у APIManager
+
+        ///Вызываем метод fetchUsers у APIManager чтобы получить пользователя
         APIManager.shared.fetchUsers { [weak self] result in
             switch result {
-            case .success(let success):
-                let users = success.items ?? []
+            case .success(let responce):
+                ///Mы передаем полученных пользователей на экран для отображения.
+                let users = responce.items ?? []
                 self?.viewController?.showUsers(users: users)
-            case .failure(let failure):
+            case .failure:
                 print("Error: loading User")
             }
         }

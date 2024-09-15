@@ -270,19 +270,26 @@ extension UserListViewController: UITableViewDataSource {
         cell.userNameLabel.text = "\(employee.firstName ?? "Имя") \(employee.lastName ?? "Фамилия")"
         cell.userCategoriesLabel.text = employee.position ?? "Должность"
        
+        
+        ///Этот кож загружает изображение и обновляет интерфейс.
+        ///Если у employee есть строка с URL изображения, и если эту строку можно преобразовать в корректный URL, тогда выполните следующий код.”
+                                                    ///Преобразуем строку в URL для загрузки данных.
+                                                    ///Нельзя использовать строку напрямую для загрузки данных. Нужно создать объект URL, чтобы сетевые запросы могли работать с ним.
         if let avatarURLString = employee.avatarURL, let avatarURL = URL(string: avatarURLString) {
-              // Загрузка изображения
+              ///Эта задача необходима для загрузки изображения и обновления интерфейса приложения. Без неё вы не получите изображение из сети.
               let task = URLSession.shared.dataTask(with: avatarURL) { data, response, error in
                   if let error = error {
                       print("Error loading image: \(error)")
                       return
                   }
                   
+                  ///Убедиться, что данные не nil и что они можно преобразовать в изображение, прежде чем использовать их.
                   guard let data = data, let image = UIImage(data: data) else {
                       print("No image data")
                       return
                   }
                   
+                  ///Чтобы обновить экран, нужно сделать это на главном потоке. DispatchQueue.main.async обеспечивает выполнение кода обновления интерфейса на главном потоке.
                   DispatchQueue.main.async {
                       cell.userImageView.image = image
                   }
@@ -290,7 +297,8 @@ extension UserListViewController: UITableViewDataSource {
               task.resume()
           } else {
               // Установите изображение по умолчанию, если URL нет
-              cell.userImageView.image = UIImage(named: "default_avatar")
+              cell.userImageView.image = UIImage(named: "Max")
+              cell.userNameLabel.text = "fefwefwgg"
           }
 
         return cell
