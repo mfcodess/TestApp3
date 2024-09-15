@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class EmployeeListViewController: UIViewController {
+final class UserListViewController: UIViewController {
     
     ///Что это? Это свойство создаёт место для ссылки на объект презентера (EmployeeListViewPresenter), который будет управлять логикой взаимодействия с данными.
-    private var presenter: EmployeeListViewPresenter!
+    private var presenter: UserListViewPresenter!
     
     //MARK: - Private properties
     
@@ -61,8 +61,8 @@ final class EmployeeListViewController: UIViewController {
     }()
     
     ///Что это? Это массив, который будет хранить категории сотрудников, полученные от презентера.
-    private var categories: [EmployeeCategory] = []
-    //private var employees: [User] = []
+    private var categories: [UserCategory] = []
+    private var employees: [User] = []
     
     ///Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
     private var selectedIndex = 0
@@ -125,11 +125,12 @@ final class EmployeeListViewController: UIViewController {
         
         
         ///Что это? Здесь ты создаёшь новый объект EmployeeListViewPresenter и присваиваешь его свойству presenter. После этого устанавливаешь viewController в презентере, чтобы презентер мог взаимодействовать с текущим ViewController.
-        presenter = EmployeeListViewPresenter()
+        presenter = UserListViewPresenter()
         presenter.viewController = self  ///Презентер теперь знает, какой контроллер использовать для отображения данных и вызова методов.
         
         ///Что это? Здесь вызывается метод loadCategories(), который загружает список категорий (например, через статические данные или из API) и затем передаёт их в контроллер через метод showCategories().
         presenter.loadCategories()  // Загружаем категории через презентер
+        presenter.loadUsers()
     }
     
     //MARK: - @Objc
@@ -141,7 +142,7 @@ final class EmployeeListViewController: UIViewController {
 
 //MARK: - Extension
 
-extension EmployeeListViewController {
+extension UserListViewController {
     
     // MARK: - Private methods
     
@@ -191,7 +192,7 @@ extension EmployeeListViewController {
 
 //MARK: - UICollectionViewDataSource
 
-extension EmployeeListViewController: UICollectionViewDataSource {
+extension UserListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }
@@ -222,7 +223,7 @@ extension EmployeeListViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 
-extension EmployeeListViewController: UICollectionViewDelegate {
+extension UserListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         ///1.    Сохраняется старый индекс выбранной ячейки в oldIndexPath.
@@ -237,7 +238,7 @@ extension EmployeeListViewController: UICollectionViewDelegate {
 
 //MARK: - UICollectionViewDelegateFlowLayout
 
-extension EmployeeListViewController: UICollectionViewDelegateFlowLayout {
+extension UserListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -254,9 +255,9 @@ extension EmployeeListViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK: - UITableViewDataSource
 
-extension EmployeeListViewController: UITableViewDataSource {
+extension UserListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return employees.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -264,14 +265,41 @@ extension EmployeeListViewController: UITableViewDataSource {
             fatalError("The TableView could not dequeue a CustomTableViewCell in VC")
         }
         cell.backgroundColor = .white
+        
+        let employee = employees[indexPath.row]
+        cell.userNameLabel.text = "\(employee.firstName ?? "Имя") \(employee.lastName ?? "Фамилия")"
+        cell.userCategoriesLabel.text = employee.position ?? "Должность"
        
+        if let avatarURLString = employee.avatarURL, let avatarURL = URL(string: avatarURLString) {
+              // Загрузка изображения
+              let task = URLSession.shared.dataTask(with: avatarURL) { data, response, error in
+                  if let error = error {
+                      print("Error loading image: \(error)")
+                      return
+                  }
+                  
+                  guard let data = data, let image = UIImage(data: data) else {
+                      print("No image data")
+                      return
+                  }
+                  
+                  DispatchQueue.main.async {
+                      cell.userImageView.image = image
+                  }
+              }
+              task.resume()
+          } else {
+              // Установите изображение по умолчанию, если URL нет
+              cell.userImageView.image = UIImage(named: "default_avatar")
+          }
+
         return cell
     }
 }
 
 //MARK: - UITableViewDelegate
 
-extension EmployeeListViewController: UITableViewDelegate {
+extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -279,14 +307,28 @@ extension EmployeeListViewController: UITableViewDelegate {
 
 
 ///Ты пишешь это, чтобы контроллер мог получать данные от презентера и отображать их.
-extension EmployeeListViewController: EmployeeListViewProtocol {
-    func showCategories(categories: [EmployeeCategory]) {
+extension UserListViewController: UserListViewProtocol {
+    func showCategories(categories: [UserCategory]) {
         self.categories = categories
         ///Без этого вызова обновлённые категории не отобразятся в коллекции.
         panelCollectionView.reloadData()  // Обновляем коллекцию с категориями
     }
+    func showUsers(users: [User]) {
+        // Обновляем массив сотрудников
+        self.employees = users
+        
+        // Вызываем reloadData() на главном потоке
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
 }
 
+
+
+
+
 #Preview {
-    EmployeeListViewController()
+    UserListViewController()
 }

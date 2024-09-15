@@ -7,29 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A61C520F2C91B35000B90C99 /* EmployeeCategory .swift in Sources */ = {isa = PBXBuildFile; fileRef = A61C520E2C91B35000B90C99 /* EmployeeCategory .swift */; };
+		A60D83D02C96B72D00FB87EE /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60D83CF2C96B72D00FB87EE /* APIManager.swift */; };
+		A60D83D32C96C09300FB87EE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60D83D22C96C09300FB87EE /* User.swift */; };
+		A61C520F2C91B35000B90C99 /* UserCategory .swift in Sources */ = {isa = PBXBuildFile; fileRef = A61C520E2C91B35000B90C99 /* UserCategory .swift */; };
 		A61C52112C92FF3F00B90C99 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61C52102C92FF3F00B90C99 /* CustomTableViewCell.swift */; };
 		A6B36F272C8D97660023A862 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F262C8D97660023A862 /* AppDelegate.swift */; };
 		A6B36F302C8D97680023A862 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6B36F2F2C8D97680023A862 /* Assets.xcassets */; };
 		A6B36F332C8D97680023A862 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A6B36F322C8D97680023A862 /* Base */; };
-		A6B36F432C8E06250023A862 /* EmployeeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F422C8E06250023A862 /* EmployeeListViewController.swift */; };
+		A6B36F432C8E06250023A862 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F422C8E06250023A862 /* UserListViewController.swift */; };
 		A6B36F482C8EECE20023A862 /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F472C8EECE20023A862 /* NSMutableAttributedString.swift */; };
 		A6B36F4A2C8F391D0023A862 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B36F492C8F391C0023A862 /* CustomCollectionViewCell.swift */; };
-		A6BE11E22C941C6800457E3B /* EmployeeListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BE11E12C941C6800457E3B /* EmployeeListViewPresenter.swift */; };
+		A6BE11E22C941C6800457E3B /* UserListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BE11E12C941C6800457E3B /* UserListViewPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A61C520E2C91B35000B90C99 /* EmployeeCategory .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmployeeCategory .swift"; sourceTree = "<group>"; };
+		A60D83CF2C96B72D00FB87EE /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		A60D83D22C96C09300FB87EE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A61C520E2C91B35000B90C99 /* UserCategory .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserCategory .swift"; sourceTree = "<group>"; };
 		A61C52102C92FF3F00B90C99 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		A6B36F232C8D97660023A862 /* TestApp_3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp_3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6B36F262C8D97660023A862 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6B36F2F2C8D97680023A862 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6B36F322C8D97680023A862 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6B36F342C8D97680023A862 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6B36F422C8E06250023A862 /* EmployeeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListViewController.swift; sourceTree = "<group>"; };
+		A6B36F422C8E06250023A862 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		A6B36F472C8EECE20023A862 /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedString.swift; sourceTree = "<group>"; };
 		A6B36F492C8F391C0023A862 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
-		A6BE11E12C941C6800457E3B /* EmployeeListViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListViewPresenter.swift; sourceTree = "<group>"; };
+		A6BE11E12C941C6800457E3B /* UserListViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A60D83D12C96B7AC00FB87EE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A60D83CF2C96B72D00FB87EE /* APIManager.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		A61C52122C92FFF100B90C99 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				A6B36F3A2C8E01860023A862 /* EmployeesListMVP */,
+				A60D83D12C96B7AC00FB87EE /* API */,
 				A6B36F442C8E06C10023A862 /* Resource */,
 			);
 			path = TestApp_3;
@@ -80,36 +93,37 @@
 		A6B36F3A2C8E01860023A862 /* EmployeesListMVP */ = {
 			isa = PBXGroup;
 			children = (
-				A6B36F3D2C8E01880023A862 /* Modal */,
-				A6B36F3B2C8E01870023A862 /* View */,
-				A6B36F3C2C8E01870023A862 /* Presenter */,
+				A6B36F3D2C8E01880023A862 /* Models */,
+				A6B36F3B2C8E01870023A862 /* Views */,
+				A6B36F3C2C8E01870023A862 /* Presenters */,
 			);
 			path = EmployeesListMVP;
 			sourceTree = "<group>";
 		};
-		A6B36F3B2C8E01870023A862 /* View */ = {
+		A6B36F3B2C8E01870023A862 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A6B36F422C8E06250023A862 /* EmployeeListViewController.swift */,
+				A6B36F422C8E06250023A862 /* UserListViewController.swift */,
 				A61C52122C92FFF100B90C99 /* CustomView */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		A6B36F3C2C8E01870023A862 /* Presenter */ = {
+		A6B36F3C2C8E01870023A862 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				A6BE11E12C941C6800457E3B /* EmployeeListViewPresenter.swift */,
+				A6BE11E12C941C6800457E3B /* UserListViewPresenter.swift */,
 			);
-			path = Presenter;
+			path = Presenters;
 			sourceTree = "<group>";
 		};
-		A6B36F3D2C8E01880023A862 /* Modal */ = {
+		A6B36F3D2C8E01880023A862 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A61C520E2C91B35000B90C99 /* EmployeeCategory .swift */,
+				A61C520E2C91B35000B90C99 /* UserCategory .swift */,
+				A60D83D22C96C09300FB87EE /* User.swift */,
 			);
-			path = Modal;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A6B36F442C8E06C10023A862 /* Resource */ = {
@@ -202,11 +216,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A60D83D02C96B72D00FB87EE /* APIManager.swift in Sources */,
 				A61C52112C92FF3F00B90C99 /* CustomTableViewCell.swift in Sources */,
-				A61C520F2C91B35000B90C99 /* EmployeeCategory .swift in Sources */,
-				A6B36F432C8E06250023A862 /* EmployeeListViewController.swift in Sources */,
+				A61C520F2C91B35000B90C99 /* UserCategory .swift in Sources */,
+				A6B36F432C8E06250023A862 /* UserListViewController.swift in Sources */,
 				A6B36F272C8D97660023A862 /* AppDelegate.swift in Sources */,
-				A6BE11E22C941C6800457E3B /* EmployeeListViewPresenter.swift in Sources */,
+				A60D83D32C96C09300FB87EE /* User.swift in Sources */,
+				A6BE11E22C941C6800457E3B /* UserListViewPresenter.swift in Sources */,
 				A6B36F482C8EECE20023A862 /* NSMutableAttributedString.swift in Sources */,
 				A6B36F4A2C8F391D0023A862 /* CustomCollectionViewCell.swift in Sources */,
 			);

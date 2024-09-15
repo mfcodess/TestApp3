@@ -11,9 +11,9 @@ final class CustomTableViewCell: UITableViewCell {
     
     //MARK: - Private properties
     
-    private lazy var userImageView: UIImageView = {
+     lazy var userImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Max")
+        image.image = UIImage(named: "")
         image.layer.cornerRadius = 36
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFill
@@ -21,9 +21,9 @@ final class CustomTableViewCell: UITableViewCell {
         return image
     }()
     
-    private lazy var userNameLabel: UILabel = {
+     lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Максим Федосєєнко"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textColor = .black
         label.textAlignment = .left
@@ -31,9 +31,9 @@ final class CustomTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var userCategoriesLabel: UILabel = {
+     lazy var userCategoriesLabel: UILabel = {
         let label = UILabel()
-        label.text = "iOS"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = .gray
         label.textAlignment = .left

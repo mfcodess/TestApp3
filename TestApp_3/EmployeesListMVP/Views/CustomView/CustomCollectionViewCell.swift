@@ -72,6 +72,8 @@ final class CustomCollectionViewCell: UICollectionViewCell {
         panelLabel.font = text
     }
     
+    
+    
     // MARK: - Private methods
     
     private func createViewLabelConstrains() {
