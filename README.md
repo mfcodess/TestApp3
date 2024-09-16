@@ -1,5 +1,5 @@
 # TestApp3
 
-# Настройка проекта
-Организовать код и наше будущее приложение под паттерн проектирование (модель) MVVM
-Удалить Storyboard и настроить проект без его использования
+# Settings Project
+Organize the code and our future application under the design pattern MVP
+Remove Storyboard and set up a project without using it
