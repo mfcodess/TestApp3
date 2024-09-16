@@ -51,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				A60D83CF2C96B72D00FB87EE /* APIManager.swift */,
+				A60D83D22C96C09300FB87EE /* User.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -121,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				A61C520E2C91B35000B90C99 /* UserCategory .swift */,
-				A60D83D22C96C09300FB87EE /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
