@@ -32,15 +32,15 @@ final class UserListViewPresenter: UserListPresenterProtocol {
     
     func loadCategories() {
         categories = [
-            UserCategory(name: "Всi"),
+            UserCategory(name: "All"),
             UserCategory(name: "iOS"),
             UserCategory(name: "Android"),
-            UserCategory(name: "Дизайн"),
+            UserCategory(name: "Design"),
             UserCategory(name: "QA"),
             UserCategory(name: "HR"),
             UserCategory(name: "Backend"),
-            UserCategory(name: "Техпiтримка"),
-            UserCategory(name: "Аналiтика")
+            UserCategory(name: "Tech Support"),
+            UserCategory(name: "Analytics")
         ]
         viewwwww?.showCategories(categories: categories) // Отправляем данные во View
     }

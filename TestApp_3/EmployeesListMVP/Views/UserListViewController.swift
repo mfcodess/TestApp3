@@ -14,8 +14,8 @@ final class UserListViewController: UIViewController {
     //MARK: - Private properties
     
     private lazy var textField: UITextField = {
-        let attrubtedString = NSMutableAttributedString(string: "Введи ім'я, тег, пошту...")
-        attrubtedString.setTextColor(color: .textFieldPlaceholderTextColorr, toSubstring: "Введи ім'я, тег, пошту...")
+        let attrubtedString = NSMutableAttributedString(string: "Enter name, tag, email...")
+        attrubtedString.setTextColor(color: .textFieldPlaceholderTextColorr, toSubstring: "Enter name, tag, email...")
         
         let textField = UITextField()
         textField.borderStyle = .none
@@ -269,6 +269,8 @@ extension UserListViewController: UITableViewDataSource {
         cell.userCategoriesLabel.text = employee?.position ?? "Должность"
         
         
+        
+        
         ///Этот кож загружает изображение и обновляет интерфейс.
         ///Если у employee есть строка с URL изображения, и если эту строку можно преобразовать в корректный URL, тогда выполните следующий код.”
         ///Преобразуем строку в URL для загрузки данных.
@@ -308,6 +310,13 @@ extension UserListViewController: UITableViewDataSource {
 extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 0:
+            let vc = UserProfile()
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
     }
 }
 

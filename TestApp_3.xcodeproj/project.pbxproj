@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6030B752C9EC4FA00526DA7 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6030B742C9EC4F900526DA7 /* UserProfile.swift */; };
 		A60D83D02C96B72D00FB87EE /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60D83CF2C96B72D00FB87EE /* APIManager.swift */; };
 		A60D83D32C96C09300FB87EE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60D83D22C96C09300FB87EE /* User.swift */; };
 		A61C520F2C91B35000B90C99 /* UserCategory .swift in Sources */ = {isa = PBXBuildFile; fileRef = A61C520E2C91B35000B90C99 /* UserCategory .swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A6030B742C9EC4F900526DA7 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		A60D83CF2C96B72D00FB87EE /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		A60D83D22C96C09300FB87EE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A61C520E2C91B35000B90C99 /* UserCategory .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserCategory .swift"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				A6B36F422C8E06250023A862 /* UserListViewController.swift */,
+				A6030B742C9EC4F900526DA7 /* UserProfile.swift */,
 				A61C52122C92FFF100B90C99 /* CustomView */,
 			);
 			path = Views;
@@ -218,6 +221,7 @@
 			files = (
 				A60D83D02C96B72D00FB87EE /* APIManager.swift in Sources */,
 				A61C52112C92FF3F00B90C99 /* CustomTableViewCell.swift in Sources */,
+				A6030B752C9EC4FA00526DA7 /* UserProfile.swift in Sources */,
 				A61C520F2C91B35000B90C99 /* UserCategory .swift in Sources */,
 				A6B36F432C8E06250023A862 /* UserListViewController.swift in Sources */,
 				A6B36F272C8D97660023A862 /* AppDelegate.swift in Sources */,
