@@ -9,8 +9,7 @@ import UIKit
 
 final class UserListViewController: UIViewController {
     
-    ///Что это? Это свойство создаёт место для ссылки на объект презентера (EmployeeListViewPresenter), который будет управлять логикой взаимодействия с данными.
-    private var presenter: UserListViewPresenter!
+    private var presenter: UserListPresenterProtocol?
     
     //MARK: - Private properties
     
@@ -60,9 +59,7 @@ final class UserListViewController: UIViewController {
         return textField
     }()
     
-    ///Что это? Это массив, который будет хранить категории сотрудников, полученные от презентера.
-    private var categories: [UserCategory] = []
-    private var employees: [User] = []
+    
     
     ///Я создал переменную чтобы хранить выбранный индекс, чтобы в дальнейщем изменять состояние ячейки
     private var selectedIndex = 0
@@ -124,18 +121,18 @@ final class UserListViewController: UIViewController {
         createBottomLineCollectionViewConstrains()
         
         
-        ///Что это? Здесь ты создаёшь новый объект EmployeeListViewPresenter и присваиваешь его свойству presenter. После этого устанавливаешь viewController в презентере, чтобы презентер мог взаимодействовать с текущим ViewController.
         presenter = UserListViewPresenter()
-        presenter.viewController = self  ///Презентер теперь знает, какой контроллер использовать для отображения данных и вызова методов.
+        presenter?.viewwwww = self
         
-        ///Что это? Здесь вызывается метод loadCategories(), который загружает список категорий (например, через статические данные или из API) и затем передаёт их в контроллер через метод showCategories().
-        presenter.loadCategories()  // Загружаем категории через презентер
-        presenter.loadUsers()
+        presenter?.loadUsers()
+        presenter?.loadCategories()
+        
+        
     }
     
     //MARK: - @Objc
     
-     @objc private func tapTextFieldButtonRight() {
+    @objc private func tapTextFieldButtonRight() {
         
     }
 }
@@ -194,7 +191,7 @@ extension UserListViewController {
 
 extension UserListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return presenter?.categories.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -204,9 +201,10 @@ extension UserListViewController: UICollectionViewDataSource {
         }
         
         
-        let category = categories[indexPath.row].name
         
-        cell.configure(text: category)
+        let category = presenter?.categories[indexPath.row].name
+        
+        cell.configure(text: category ?? "Errror")
         
         if indexPath.row == selectedIndex {
             cell.configureTextColor(textColor: .black)// Цвет текста для выбранного элемента
@@ -242,13 +240,13 @@ extension UserListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let text = categories[indexPath.row].name
+        let text = presenter?.categories[indexPath.row].name
         let maxWidth: CGFloat = 120
         let padding: CGFloat = 25
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
-        let textWidth = text.size(withAttributes: attributes).width
+        let textWidth = text?.size(withAttributes: attributes).width ?? 0
         let cellWidth = min(textWidth + padding, maxWidth)
-
+        
         return CGSize(width: cellWidth, height: collectionView.bounds.height)
     }
 }
@@ -257,7 +255,7 @@ extension UserListViewController: UICollectionViewDelegateFlowLayout {
 
 extension UserListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return employees.count
+        return presenter?.users.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -266,41 +264,41 @@ extension UserListViewController: UITableViewDataSource {
         }
         cell.backgroundColor = .white
         
-        let employee = employees[indexPath.row]
-        cell.userNameLabel.text = "\(employee.firstName ?? "Имя") \(employee.lastName ?? "Фамилия")"
-        cell.userCategoriesLabel.text = employee.position ?? "Должность"
-       
+        let employee = presenter?.users[indexPath.row]
+        cell.userNameLabel.text = "\(employee?.firstName ?? "Имя") \(employee?.lastName ?? "Фамилия")"
+        cell.userCategoriesLabel.text = employee?.position ?? "Должность"
+        
         
         ///Этот кож загружает изображение и обновляет интерфейс.
         ///Если у employee есть строка с URL изображения, и если эту строку можно преобразовать в корректный URL, тогда выполните следующий код.”
-                                                    ///Преобразуем строку в URL для загрузки данных.
-                                                    ///Нельзя использовать строку напрямую для загрузки данных. Нужно создать объект URL, чтобы сетевые запросы могли работать с ним.
-        if let avatarURLString = employee.avatarURL, let avatarURL = URL(string: avatarURLString) {
-              ///Эта задача необходима для загрузки изображения и обновления интерфейса приложения. Без неё вы не получите изображение из сети.
-              let task = URLSession.shared.dataTask(with: avatarURL) { data, response, error in
-                  if let error = error {
-                      print("Error loading image: \(error)")
-                      return
-                  }
-                  
-                  ///Убедиться, что данные не nil и что они можно преобразовать в изображение, прежде чем использовать их.
-                  guard let data = data, let image = UIImage(data: data) else {
-                      print("No image data")
-                      return
-                  }
-                  
-                  ///Чтобы обновить экран, нужно сделать это на главном потоке. DispatchQueue.main.async обеспечивает выполнение кода обновления интерфейса на главном потоке.
-                  DispatchQueue.main.async {
-                      cell.userImageView.image = image
-                  }
-              }
-              task.resume()
-          } else {
-              // Установите изображение по умолчанию, если URL нет
-              cell.userImageView.image = UIImage(named: "Max")
-              cell.userNameLabel.text = "fefwefwgg"
-          }
-
+        ///Преобразуем строку в URL для загрузки данных.
+        ///Нельзя использовать строку напрямую для загрузки данных. Нужно создать объект URL, чтобы сетевые запросы могли работать с ним.
+        if let avatarURLString = employee?.avatarURL, let avatarURL = URL(string: avatarURLString) {
+            ///Эта задача необходима для загрузки изображения и обновления интерфейса приложения. Без неё вы не получите изображение из сети.
+            let task = URLSession.shared.dataTask(with: avatarURL) { data, response, error in
+                if let error = error {
+                    print("Error loading image: \(error)")
+                    return
+                }
+                
+                ///Убедиться, что данные не nil и что они можно преобразовать в изображение, прежде чем использовать их.
+                guard let data = data, let image = UIImage(data: data) else {
+                    print("No image data")
+                    return
+                }
+                
+                ///Чтобы обновить экран, нужно сделать это на главном потоке. DispatchQueue.main.async обеспечивает выполнение кода обновления интерфейса на главном потоке.
+                DispatchQueue.main.async {
+                    cell.userImageView.image = image
+                }
+            }
+            task.resume()
+        } else {
+            // Установите изображение по умолчанию, если URL нет
+            cell.userImageView.image = UIImage(named: "Max")
+            cell.userNameLabel.text = "fefwefwgg"
+        }
+        
         return cell
     }
 }
@@ -317,20 +315,26 @@ extension UserListViewController: UITableViewDelegate {
 ///Ты пишешь это, чтобы контроллер мог получать данные от презентера и отображать их.
 extension UserListViewController: UserListViewProtocol {
     func showCategories(categories: [UserCategory]) {
-        self.categories = categories
-        ///Без этого вызова обновлённые категории не отобразятся в коллекции.
-        panelCollectionView.reloadData()  // Обновляем коллекцию с категориями
+        self.presenter?.categories = categories
+        panelCollectionView.reloadData()
     }
+    
     func showUsers(users: [User]) {
-        // Обновляем массив сотрудников
-        self.employees = users
-        
-        // Вызываем reloadData() на главном потоке
+        self.presenter?.users = users
+        /*
+         DispatchQueue.main.async { self.tableView.reloadData() } — это код, который гарантирует, что обновление интерфейса (в данном случае, перезагрузка данных в таблице) происходит на главном потоке.
+
+         Проще говоря:
+
+             •    Все обновления интерфейса нужно делать на главном потоке, чтобы избежать проблем с отображением.
+             •    Этот код говорит: “Сделай это обновление позже, на главном потоке”.
+
+         Так что, когда данные загружены, ты используешь этот код, чтобы обновить таблицу и показать новые данные.
+         */
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
 }
 
 
